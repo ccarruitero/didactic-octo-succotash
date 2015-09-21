@@ -3,12 +3,14 @@
 
   angular
     .module('buildList')
+    .filter('buildFilter', buildFilter)
     .controller('MainController', MainController);
 
   /** @ngInject */
   function MainController($scope, buildData) {
 
     this.builds = [];
+    this.unopenStates = ['rejected', 'running'];
     var self = this;
 
     getBuildData();
@@ -23,7 +25,7 @@
         hideDetails(lastOpenedBuild);
         $scope.lastBuild = build;
       }
-      if (build.state !== 'rejected') {
+      if (self.unopenStates.indexOf(build.state) === -1) {
         build.opened = (build.opened ? false : true);
       }
     };
@@ -33,5 +35,17 @@
         build.opened = false;
       }
     }
+  }
+
+  function buildFilter() {
+    return function(builds) {
+      var filtered = [];
+      angular.forEach(builds, function(build) {
+        if (build.state !== 'fail') {
+          filtered.push(build);
+        }
+      });
+      return filtered;
+    };
   }
 })();

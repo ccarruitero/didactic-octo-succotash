@@ -14,7 +14,7 @@ describe('The main view', function () {
   });
 
   it('should list 3 builds', function () {
-    expect(page.rowEls.count()).toBe(3);
+    expect(page.rowEls.count()).toBeGreaterThan(3);
   });
 
   it('should show details when click accepted build', function() {
@@ -45,4 +45,14 @@ describe('The main view', function () {
     expect(row.element(by.css('.build-details')).isDisplayed()).toBe(false);
   });
 
+  it('should not show details for running build', function() {
+    var row = page.rowEls.get(3);
+    row.click();
+    expect(row.element(by.css('.build-details')).isDisplayed()).toBe(false);
+  });
+
+  it('should not show fail build', function() {
+    var row = page.rowEls.last();
+    expect(row.element(by.binding('build.state')).getText()).not.toBe('fail');
+  });
 });

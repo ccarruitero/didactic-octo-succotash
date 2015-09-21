@@ -15,7 +15,7 @@
       });
 
       expect(angular.isArray(controller.builds)).toBeTruthy();
-      expect(controller.builds.length).toBe(3);
+      expect(controller.builds.length > 3).toBeTruthy();
     }));
   });
 })();

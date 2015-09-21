@@ -11,8 +11,20 @@
       {
         'name': '432462',
         'type': 'build',
-        'state': 'running',
+        'state': 'accepted',
         'timeStarted': Date.now() - 20000
+      },
+      {
+        'name': '432461',
+        'type': 'build',
+        'state': 'accepted',
+        'timeStarted': Date.now() - 30000
+      },
+      {
+        'name': '432460',
+        'type': 'firewall',
+        'state': 'rejected',
+        'timeStarted': Date.now() - 345000
       },
       {
         'name': '432461',
@@ -21,10 +33,10 @@
         'timeStarted': Date.now() - 30000
       },
       {
-        'name': '432460',
-        'type': 'firewall',
-        'state': 'rejected',
-        'timeStarted': Date.now() - 345000
+        'name': '432461',
+        'type': 'build',
+        'state': 'fail',
+        'timeStarted': Date.now() - 30000
       }
     ];
 
