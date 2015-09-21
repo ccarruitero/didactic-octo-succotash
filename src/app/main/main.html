@@ -17,7 +17,7 @@
         <p class="item item-box">Functional Test</p>
         </b>
       </li>
-      <li class="list-group-item build-item" ng-repeat="build in main.builds | buildFilter" ng-click="openDetails(build)" ng-class="{'disabled': build.state==='rejected'}">
+      <li class="list-group-item build-item" ng-repeat="build in main.builds | buildFilter" ng-click="openDetails(build)" ng-class="{'disabled': disabledDetails(build.state)}">
         <p class="item">{{ build.name }}</p>
         <p class="item">{{ build.owner }}</p>
         <p class="item">{{ build.timeStarted }}</p>

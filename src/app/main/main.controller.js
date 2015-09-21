@@ -35,6 +35,10 @@
         build.opened = false;
       }
     }
+
+    $scope.disabledDetails = function(state) {
+      return (self.unopenStates.indexOf(state) !== -1);
+    };
   }
 
   function buildFilter() {
