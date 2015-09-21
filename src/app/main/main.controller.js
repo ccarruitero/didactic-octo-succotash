@@ -6,34 +6,30 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
-    var vm = this;
+  function MainController($timeout, buildData, $scope) {
 
-    vm.awesomeThings = [];
-    vm.classAnimation = '';
-    vm.creationDate = 1442722230356;
-    vm.showToastr = showToastr;
+    this.builds = [];
+    var self = this;
 
-    activate();
+    getBuildData();
 
-    function activate() {
-      getWebDevTec();
-      $timeout(function() {
-        vm.classAnimation = 'rubberBand';
-      }, 4000);
+    function getBuildData() {
+      self.builds = buildData.getData();
     }
 
-    function showToastr() {
-      toastr.info('Fork <a href="https://github.com/Swiip/generator-gulp-angular" target="_blank"><b>generator-gulp-angular</b></a>');
-      vm.classAnimation = '';
-    }
+    $scope.openDetails = function(build) {
+      var lastOpenedBuild = $scope.lastBuild;
+      hideDetails(lastOpenedBuild);
+      $scope.lastBuild = build;
+      if (build.state !== 'rejected') {
+        build.opened = true;
+      }
+    };
 
-    function getWebDevTec() {
-      vm.awesomeThings = webDevTec.getTec();
-
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
-        awesomeThing.rank = Math.random();
-      });
+    function hideDetails(build) {
+      if (build !== undefined) {
+        build.opened = false;
+      }
     }
   }
 })();
