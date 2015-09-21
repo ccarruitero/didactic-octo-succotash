@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, buildData, $scope) {
+  function MainController($scope, buildData) {
 
     this.builds = [];
     var self = this;
@@ -19,10 +19,12 @@
 
     $scope.openDetails = function(build) {
       var lastOpenedBuild = $scope.lastBuild;
-      hideDetails(lastOpenedBuild);
-      $scope.lastBuild = build;
+      if (build !== lastOpenedBuild) {
+        hideDetails(lastOpenedBuild);
+        $scope.lastBuild = build;
+      }
       if (build.state !== 'rejected') {
-        build.opened = true;
+        build.opened = (build.opened ? false : true);
       }
     };
 

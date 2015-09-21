@@ -2,14 +2,20 @@
   'use strict';
 
   describe('controllers', function(){
+    var scope, controller;
 
-    beforeEach(module('buildList'));
+    beforeEach(function() {
+      module('buildList');
+    });
 
-    it('should define more than 5 awesome things', inject(function($controller) {
-      var vm = $controller('MainController');
+    it('should get builds array', inject(function($controller, $rootScope) {
+      scope = $rootScope.$new();
+      controller = $controller('MainController', {
+        $scope: scope
+      });
 
-      expect(angular.isArray(vm.awesomeThings)).toBeTruthy();
-      expect(vm.awesomeThings.length > 5).toBeTruthy();
+      expect(angular.isArray(controller.builds)).toBeTruthy();
+      expect(controller.builds.length).toBe(3);
     }));
   });
 })();

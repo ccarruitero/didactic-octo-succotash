@@ -6,10 +6,9 @@
 'use strict';
 
 var MainPage = function() {
-  this.jumbEl = element(by.css('.jumbotron'));
-  this.h1El = this.jumbEl.element(by.css('h1'));
-  this.imgEl = this.jumbEl.element(by.css('img'));
-  this.thumbnailEls = element(by.css('body')).all(by.repeater('awesomeThing in main.awesomeThings'));
+  this.tableEl = element(by.css('.list-group'));
+  this.headerEl = this.tableEl.element(by.css('.header'));
+  this.rowEls = element(by.css('body')).all(by.repeater('build in main.builds'));
 };
 
 module.exports = new MainPage();
