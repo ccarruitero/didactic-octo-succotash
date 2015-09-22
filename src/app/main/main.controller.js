@@ -7,7 +7,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, buildData) {
+  function MainController($scope, buildData, $modal) {
 
     this.builds = [];
     this.unopenStates = ['rejected', 'running'];
@@ -39,6 +39,26 @@
     $scope.disabledDetails = function(state) {
       return (self.unopenStates.indexOf(state) !== -1);
     };
+
+    // modal
+    $scope.openModal = function (item) {
+      var obj = {
+        title: item,
+        name: $scope.lastBuild.name
+      };
+
+      $modal.open({
+        animation: true,
+        templateUrl: 'boxDetails.html',
+        controller: ModalCtrl,
+        bindToController: true,
+        resolve: {
+          box: function () {
+            return obj;
+          }
+        }
+      });
+    };
   }
 
   function buildFilter() {
@@ -51,5 +71,9 @@
       });
       return filtered;
     };
+  }
+
+  function ModalCtrl($rootScope, $scope, $modalInstance, box) {
+    $scope.box = box;
   }
 })();

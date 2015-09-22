@@ -13,7 +13,7 @@ describe('The main view', function () {
     expect(page.rowEls.first().getText()).toMatch('432462');
   });
 
-  it('should list 3 builds', function () {
+  it('should list more than 3 builds', function () {
     expect(page.rowEls.count()).toBeGreaterThan(3);
   });
 
@@ -54,5 +54,19 @@ describe('The main view', function () {
   it('should not show fail build', function() {
     var row = page.rowEls.last();
     expect(row.element(by.binding('build.state')).getText()).not.toBe('fail');
+  });
+
+  it('should show modal when click first box', function() {
+    var row = page.rowEls.first();
+    row.click();
+    row.element(by.css('.box')).click()
+    expect(element(by.css('.modal-title')).getText()).toBe('metrics');
+  });
+
+  it('should show modal when click last box', function() {
+    var row = page.rowEls.first();
+    row.click();
+    row.all(by.css('.box')).last().click()
+    expect(element(by.css('.modal-title')).getText()).toBe('functional');
   });
 });
